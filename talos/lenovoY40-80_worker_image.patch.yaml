@@ -1,0 +1,5 @@
+# Patch file for HP EliteDesk 800G3 control plane nodes
+machine:
+  install:
+    image: factory.talos.dev/installer/178146796e64197cbc943ea0dfebaf0694d21bed8b930e8f2c031ceb35578f9a:v1.9.5
+    disk: /dev/sda

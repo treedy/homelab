@@ -1,0 +1,11 @@
+machine:
+  network:
+    hostname: k8snode01
+    interfaces:
+      - interface: enp3s0
+        addresses:
+          - 192.168.0.5/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.0.1
+        mtu: 1500

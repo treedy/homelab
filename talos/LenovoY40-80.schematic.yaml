@@ -1,0 +1,15 @@
+# Talos Image Factory Schematic for HP Elite Desk 800G3 Nodes
+# See https://www.talos.dev/v1.9/talos-guides/install/boot-assets/#image-factory
+# ID: 178146796e64197cbc943ea0dfebaf0694d21bed8b930e8f2c031ceb35578f9a
+# ISO Image link: https://factory.talos.dev/image/178146796e64197cbc943ea0dfebaf0694d21bed8b930e8f2c031ceb35578f9a/v1.9.5/metal-amd64.iso
+# PXE boot: https://pxe.factory.talos.dev/pxe/178146796e64197cbc943ea0dfebaf0694d21bed8b930e8f2c031ceb35578f9a/v1.9.5/metal-amd64
+
+# For use in machine configuration
+# Installation image: factory.talos.dev/installer/178146796e64197cbc943ea0dfebaf0694d21bed8b930e8f2c031ceb35578f9a:v1.9.5
+customization:
+    systemExtensions:
+        officialExtensions:
+            - siderolabs/amdgpu
+            - siderolabs/fuse3
+            - siderolabs/intel-ucode
+            - siderolabs/iscsi-tools
