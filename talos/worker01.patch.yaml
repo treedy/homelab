@@ -7,5 +7,7 @@ machine:
           - 192.168.0.5/22
         routes:
           - network: 0.0.0.0/0
-            gateway: 192.168.0.1
+            gateway: 192.168.1.1
         mtu: 1500
+    nameservers:
+      - 192.168.0.10

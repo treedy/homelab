@@ -7,9 +7,11 @@ machine:
           - 192.168.0.3/22
         routes:
           - network: 0.0.0.0/0
-            gateway: 192.168.0.1
+            gateway: 192.168.1.1
         mtu: 1500
         vip:
           ip: 192.168.0.1
+    nameservers:
+      - 192.168.0.10
   nodeLabels:
     $patch: delete

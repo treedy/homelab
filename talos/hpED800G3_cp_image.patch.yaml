@@ -3,3 +3,4 @@ machine:
   install:
     image: factory.talos.dev/installer/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847:v1.9.5
     disk: /dev/sdb
+    wipe: true
