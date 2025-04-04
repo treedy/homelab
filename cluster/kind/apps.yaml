@@ -1,0 +1,5 @@
+spec:
+  source:
+    repoURL: http://truenas.local:30008/tawdball/homelab.git
+    targetRevision: wip-gitea-only
+    path: apps/kind
