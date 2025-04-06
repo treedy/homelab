@@ -1,0 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-apps
+  namespace: argocd
+spec:
+  source:
+    repoURL: http://truenas.local:30008/tawdball/homelab.git
+    targetRevision: wip-gitea-only
+    path: infra/kind

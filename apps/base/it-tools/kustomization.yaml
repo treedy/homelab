@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: it-tools
 resources:
   - ./ittools.yaml
+  - ./ittools-namespace.yaml
