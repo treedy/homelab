@@ -8,3 +8,14 @@ metadata:
 spec:
   source:
     targetRevision: 34.5.*
+    helm:
+      releaseName: traefik
+      values: |
+        service:
+          type: LoadBalancer
+        ingressClass:
+          enabled: true
+          isDefaultClass: true
+        ingressRoute:
+          dashboard:
+            enabled: true
