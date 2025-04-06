@@ -4,3 +4,4 @@ resources:
   - ../base
 patches:
   - path: metallb/ipaddresses.yaml
+  - path: traefik/traefik_argocd.yaml
