@@ -28,7 +28,7 @@ spec:
         dashboard:
           enabled: true
   destination:
-    server: in-cluster
+    name: in-cluster
     namespace: traefik
   syncPolicy:
     automated:
