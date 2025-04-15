@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default # Or your specific ArgoCD project
+  source:
+    # Source is the official cert-manager Helm chart repository
+    repoURL: https://charts.jetstack.io
+    chart: cert-manager
+    # Pin to a specific version for stability. Check for the latest compatible version.
+    # See: https://github.com/cert-manager/cert-manager/releases
+    targetRevision: v1.17.*
+
+    helm:
+      # Values configure the cert-manager Helm chart installation
+      values: |
+        # CRITICAL: installCRDs=true is simpler but can cause issues during upgrades
+        # or if ArgoCD tries to manage CRDs before they are fully established.
+        # RECOMMENDED: Install CRDs separately (e.g., manually or via a dedicated ArgoCD App)
+        # and set installCRDs=false here.
+        # See: https://cert-manager.io/docs/installation/helm/#installing-with-helm
+        installCRDs: true
+
+        # Optional: Define resource requests/limits if needed
+        # resources:
+        #   requests:
+        #     cpu: 10m
+        #     memory: 32Mi
+
+        # Optional: Configure webhook resources if needed
+        # webhook:
+        #   resources:
+        #     requests:
+        #       cpu: 10m
+        #       memory: 32Mi
+
+        # Optional: Configure cainjector resources if needed
+        # cainjector:
+        #   resources:
+        #     requests:
+        #       cpu: 10m
+        #       memory: 32Mi
+
+        # Add any other specific cert-manager Helm values you need here
+        # Check the chart's values.yaml for all options:
+        # https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml
+
+  destination:
+    # Deploy cert-manager components to the 'cert-manager' namespace in the current cluster
+    name: in-cluster
+    namespace: cert-manager # Target namespace for cert-manager resources
+
+  syncPolicy:
+    automated:
+      prune: true   # Delete resources removed from the source
+      selfHeal: true # Re-sync if live state deviates from source
+    syncOptions:
+      - CreateNamespace=true # Automatically create the 'cert-manager' namespace if it doesn't exist
+      # Consider adding ServerSideApply=true for better compatibility with CRDs and controllers
+      # - ServerSideApply=true
