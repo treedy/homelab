@@ -55,9 +55,9 @@ spec:
     namespace: cert-manager # Target namespace for cert-manager resources
 
   syncPolicy:
-    automated:
-      prune: true   # Delete resources removed from the source
-      selfHeal: true # Re-sync if live state deviates from source
+    # automated:
+    #   prune: true   # Delete resources removed from the source
+    #   selfHeal: true # Re-sync if live state deviates from source
     syncOptions:
       - CreateNamespace=true # Automatically create the 'cert-manager' namespace if it doesn't exist
       # Consider adding ServerSideApply=true for better compatibility with CRDs and controllers

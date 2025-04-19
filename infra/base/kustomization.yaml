@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
   - metallb_argocd.yaml
   - traefik
+  - cert-manager_argocd.yaml
+  - ./cert-manager/letsencrypt-issuer.yaml
