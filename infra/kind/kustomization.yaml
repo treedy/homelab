@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - ../base
 patches:
-  - path: metallb/ipaddresses.yaml
+  - path: ./metallb_argocd.yaml
   - path: traefik/traefik_argocd.yaml
