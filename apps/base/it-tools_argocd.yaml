@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: it-tools
+  namespace: argocd
+spec:
+  destination:
+    namespace: it-tools
+    name: in-cluster
+  project: default
+  source:
+    path: apps/base/it-tools
+    repoURL: https://github.com/tawdball/homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
