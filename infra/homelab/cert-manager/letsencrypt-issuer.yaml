@@ -1,0 +1,30 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  # Name this issuer descriptively
+  name: letsencrypt-staging # START WITH STAGING!
+spec:
+  acme:
+    # --- IMPORTANT: Use Let's Encrypt Staging first to avoid rate limits ---
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # --- Once staging works, create a production issuer ---
+    # server: https://acme-v02.api.letsencrypt.org/directory
+
+    # Email address used for ACME registration (replace with yours)
+    email: tawdball@gmail.com # <--- CHANGE THIS
+
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-staging-account-key # Use a different name for production issuer
+
+    # Configure the solver for the ACME challenge
+    solvers:
+      - http01:
+          ingress:
+            # This tells cert-manager to create temporary Ingress resources
+            # to solve the challenge, targeting Traefik.
+            # Make sure 'traefik' matches the IngressClass name used by your Traefik install.
+            # Check with: kubectl get ingressclass
+            class: traefik # <--- VERIFY this matches your Traefik IngressClass name
+            # Optional: If using specific ingress controllers by name instead of class
+            # name: my-traefik-ingress-controller

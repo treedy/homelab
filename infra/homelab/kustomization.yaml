@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+patches:
+  - path: metallb_argocd.yaml
+  - path: traefik/traefik_argocd.yaml
+  - path: cert-manager_argocd.yaml
+  - path: cert-manager/letsencrypt-issuer.yaml

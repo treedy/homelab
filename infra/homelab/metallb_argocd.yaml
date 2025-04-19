@@ -1,0 +1,11 @@
+# Merge strategy patch file
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb
+  namespace: argocd
+spec:
+  source:
+    path: infra/homelab/metallb
+    repoURL: http://truenas.local:30008/tawdball/homelab.git
+    targetRevision: main

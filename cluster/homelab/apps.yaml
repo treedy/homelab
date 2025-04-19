@@ -1,0 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-apps
+  namespace: argocd
+spec:
+  source:
+    repoURL: http://truenas.local:30008/tawdball/homelab.git
+    targetRevision: main
+    path: apps/homelab
