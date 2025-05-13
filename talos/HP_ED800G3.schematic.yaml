@@ -1,11 +1,11 @@
 # Talos Image Factory Schematic for HP Elite Desk 800G3 Nodes
 # See https://www.talos.dev/v1.9/talos-guides/install/boot-assets/#image-factory
 # ID: ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847
-# ISO Image link: https://factory.talos.dev/image/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847/v1.9.5/metal-amd64.iso
-# PXE boot: https://pxe.factory.talos.dev/pxe/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847/v1.9.5/metal-amd64
+# SecureBoot ISO Image link: https://factory.talos.dev/image/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847/v1.10.1/metal-amd64-secureboot.iso
+# SecureBoot PXE: https://pxe.factory.talos.dev/pxe/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847/v1.10.1/metal-amd64-secureboot
 
 # For use in machine configuration
-# Installation image: factory.talos.dev/installer/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847:v1.9.5
+# Installation image: factory.talos.dev/metal-installer-secureboot/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847:v1.10.1
 customization:
     systemExtensions:
         officialExtensions:

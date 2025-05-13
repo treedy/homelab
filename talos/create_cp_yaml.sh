@@ -7,3 +7,5 @@ talosctl gen config homek8s https://192.168.0.1:6443 \
 	--with-docs=false \
 	--with-examples=false \
 	-o cp${1}.yaml
+
+cat cp.disklayout.yaml >> cp${1}.yaml
