@@ -7,3 +7,4 @@ patches:
   - path: traefik/traefik_argocd.yaml
   - path: cert-manager_argocd.yaml
   - path: cert-manager/letsencrypt-issuer.yaml
+  - path: longhorn-argocd.yaml

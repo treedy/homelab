@@ -4,10 +4,6 @@ metadata:
   name: longhorn
   namespace: argocd
 spec:
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  project: default
   sources:
     - chart: longhorn
       repoURL: https://charts.longhorn.io/
@@ -16,6 +12,5 @@ spec:
         values: |
           preUpgradeChecker:
             jobEnabled: false
-  destination:
-    name: in-cluster
-    namespace: longhorn-system
+          defaultSettings:
+            defaultDataPath: /var/mnt/longhorn-data
