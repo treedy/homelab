@@ -5,3 +5,4 @@ resources:
   - traefik
   - cert-manager_argocd.yaml
   - ./cert-manager/letsencrypt-issuer.yaml
+  - longhorn-argocd.yaml
