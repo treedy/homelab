@@ -1,6 +1,6 @@
 # Patch file for HP EliteDesk 800G3 control plane nodes
 machine:
   install:
-    image: factory.talos.dev/metal-installer-secureboot/ffec315ac69acbd23b5aeea7895e4761a51d9c52a919063bc36054b0ef574847:v1.10.1
+    image: factory.talos.dev/metal-installer-secureboot/1629c91203969fbd0bb43422068879e2636b6d28bb3575661ab038f1422231fc:v1.10.1
     disk: /dev/sdb
     wipe: true
