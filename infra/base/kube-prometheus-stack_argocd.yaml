@@ -69,7 +69,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    managedNameSpaceMetadata:
+    managedNamespaceMetadata:
       labels:
         pod-security.kubernetes.io/audit: privileged
         pod-security.kubernetes.io/audit-version: latest
