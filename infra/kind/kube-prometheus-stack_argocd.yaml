@@ -22,21 +22,3 @@ spec:
                   resources:
                     requests:
                       storage: 2Gi
-  destination:
-    name: in-cluster # Deploy to the same cluster where ArgoCD is running
-    namespace: monitoring # Target namespace for monitoring components
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    managedNameSpaceMetadata:
-      labels:
-        pod-security.kubernetes.io/audit: privileged
-        pod-security.kubernetes.io/audit-version: latest
-        pod-security.kubernetes.io/enforce: privileged
-        pod-security.kubernetes.io/enforce-version: latest
-        pod-security.kubernetes.io/warn: privileged
-        pod-security.kubernetes.io/warn-version: latest
-    syncOptions:
-      - CreateNamespace=true # Automatically create the 'monitoring' namespace
-      # - ServerSideApply=true # Recommended for CRD-heavy charts
