@@ -79,4 +79,4 @@ spec:
         pod-security.kubernetes.io/warn-version: latest
     syncOptions:
       - CreateNamespace=true # Automatically create the 'monitoring' namespace
-      # - ServerSideApply=true # Recommended for CRD-heavy charts
+      - ServerSideApply=true # Recommended for CRD-heavy charts, like this one
