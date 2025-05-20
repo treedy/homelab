@@ -53,7 +53,7 @@ spec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
-                  # storageClassName: "your-storage-class" # e.g., "longhorn"
+                  storageClassName: "longhorn" # e.g., "longhorn"
                   accessModes: ["ReadWriteOnce"]
                   resources:
                     requests:

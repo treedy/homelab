@@ -14,11 +14,13 @@ spec:
         grafana:
           persistence:
             size: 1Gi
+            storageClassName: ""
         prometheus:
           prometheusSpec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
+                  storageClassName: ""
                   resources:
                     requests:
                       storage: 2Gi
