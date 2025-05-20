@@ -32,7 +32,7 @@ spec:
           #   existingSecret: "grafana-admin-credentials" # Secret containing 'admin-user' and 'admin-password' keys
           persistence:
             enabled: true
-            storageClassName: "longhorn"
+            # storageClassName: "longhorn"
             size: 5Gi
           # If you want to expose Grafana via Ingress (e.g., with Traefik)
           # ingress:
@@ -53,7 +53,7 @@ spec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
-                  storageClassName: "longhorn" # e.g., "longhorn"
+                  # storageClassName: "longhorn" # e.g., "longhorn"
                   accessModes: ["ReadWriteOnce"]
                   resources:
                     requests:

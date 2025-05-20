@@ -5,6 +5,7 @@ resources:
 patches:
   - path: metallb_argocd.yaml
   - path: traefik/traefik_argocd.yaml
+  - path: kube-prometheus-stack_argocd.yaml
   - path: cert-manager_argocd.yaml
   - path: cert-manager/letsencrypt-issuer.yaml
   - path: longhorn-argocd.yaml

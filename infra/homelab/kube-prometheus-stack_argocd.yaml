@@ -6,19 +6,17 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  project: default # Or your specific ArgoCD project
   source:
-    targetRevision: 72.5.*
+    targetRevision: 72.5.1
     helm:
       valuesObject:
-        # Grafana configuration
         grafana:
           persistence:
-            size: 1Gi
+            storageClassName: "longhorn"
         prometheus:
           prometheusSpec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
-                  resources:
-                    requests:
-                      storage: 2Gi
+                  storageClassName: "longhorn" # e.g., "longhorn"
