@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
   - ../base
 patches:
+  - path: longhorn.yaml
   - path: ./metallb_argocd.yaml
   - path: traefik/traefik_argocd.yaml
   - path: ./cert-manager/letsencrypt-issuer.yaml
+  - path: kube-prometheus-stack_argocd.yaml

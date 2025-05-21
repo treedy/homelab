@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd # Assuming your ArgoCD is in the 'argocd' namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default # Or your specific ArgoCD project
+  source:
+    targetRevision: 72.5.1
+    helm:
+      valuesObject:
+        grafana:
+          persistence:
+            storageClassName: "longhorn"
+        prometheus:
+          prometheusSpec:
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: "longhorn" # e.g., "longhorn"

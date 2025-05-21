@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd # Assuming your ArgoCD is in the 'argocd' namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    targetRevision: 72.5.*
+    helm:
+      valuesObject:
+        # Grafana configuration
+        grafana:
+          persistence:
+            size: 1Gi
+        prometheus:
+          prometheusSpec:
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  resources:
+                    requests:
+                      storage: 2Gi

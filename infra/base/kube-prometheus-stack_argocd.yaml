@@ -1,0 +1,82 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd # Assuming your ArgoCD is in the 'argocd' namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default # Or your specific ArgoCD project
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    # Pin to a specific version for stability.
+    # Check for the latest compatible version from:
+    # https://github.com/prometheus-community/helm-charts/releases
+    targetRevision: 72.5.1
+    helm:
+      # Refer to the chart's values.yaml for all available options:
+      # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+      valuesObject:
+        # General settings
+        # namespaceOverride: "monitoring" # Default is release namespace
+
+        # Grafana configuration
+        grafana:
+          enabled: true
+          # IMPORTANT: Change the default admin password!
+          # You can set it directly, or use an existing secret.
+          # adminPassword: "your-strong-password-here"
+          # For more security, create a secret and reference it:
+          # admin:
+          #   existingSecret: "grafana-admin-credentials" # Secret containing 'admin-user' and 'admin-password' keys
+          persistence:
+            enabled: true
+            # storageClassName: "longhorn"
+            size: 5Gi
+          # If you want to expose Grafana via Ingress (e.g., with Traefik)
+          # ingress:
+          #   enabled: true
+          #   ingressClassName: "traefik" # Make sure this matches your Traefik IngressClass
+          #   hosts:
+          #     - "grafana.your.domain.com"
+          #   tls:
+          #     - secretName: grafana-tls # Assumes you have a TLS secret for this host
+          #       hosts:
+          #         - "grafana.your.domain.com"
+
+        # Prometheus configuration
+        prometheus:
+          enabled: true
+          prometheusSpec:
+            # Configure persistence for Prometheus
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  # storageClassName: "longhorn" # e.g., "longhorn"
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 20Gi
+
+        # Alertmanager configuration (optional, can be disabled if not needed)
+        alertmanager:
+          enabled: true # Set to false if you don't need Alertmanager initially
+  destination:
+    name: in-cluster # Deploy to the same cluster where ArgoCD is running
+    namespace: monitoring # Target namespace for monitoring components
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/audit: privileged
+        pod-security.kubernetes.io/audit-version: latest
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/enforce-version: latest
+        pod-security.kubernetes.io/warn: privileged
+        pod-security.kubernetes.io/warn-version: latest
+    syncOptions:
+      - CreateNamespace=true # Automatically create the 'monitoring' namespace
+      - ServerSideApply=true # Recommended for CRD-heavy charts, like this one
