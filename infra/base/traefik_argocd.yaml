@@ -10,12 +10,14 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts
     chart: traefik
-    targetRevision: 34.5.0
+    targetRevision: 35.3.0
     helm:
       releaseName: traefik
-      values: |
+      valuesObject:
         service:
           type: LoadBalancer
+          spec:
+            loadBalancerIP: 192.168.0.20
         ingressClass:
           enabled: true
           isDefaultClass: true
