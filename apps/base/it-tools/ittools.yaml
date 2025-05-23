@@ -13,7 +13,8 @@ spec:
     spec:
       containers:
       - name: it-tools
-        image: corentinth/it-tools:2024.10.22-7ca5933
+        # image: corentinth/it-tools:2024.10.22-7ca5933
+        image: ghcr.io/sharevb/it-tools:2025.2.9-b99a19c
         resources:
           requests:
             memory: "128Mi"
@@ -29,9 +30,26 @@ kind: Service
 metadata:
   name: it-tools-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: it-tools
   ports:
   - port: 80
     targetPort: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: it-tools-ingress
+  namespace: it-tools
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: HostRegexp(`^it-tools\.*`)
+    services:
+    - kind: Service
+      name: it-tools-service
+      passHostHeader: true
+      port: 80
