@@ -8,3 +8,15 @@ patches:
   - path: cert-manager_argocd.yaml
   - path: cert-manager/letsencrypt-issuer.yaml
   - path: longhorn-argocd.yaml
+  - patch: |
+      - op: replace
+        path: /spec/sources/1
+        value: {
+          repoURL: http://truenas.local:30008/tawdball/homelab.git,
+          path: infra/homelab/pgsql,
+          targetRevision: HEAD
+        }
+    target:
+      kind: Application
+      name: postgresql
+      namespace: argocd

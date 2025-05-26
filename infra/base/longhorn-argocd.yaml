@@ -5,14 +5,19 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - chart: longhorn
-      repoURL: https://charts.longhorn.io/
-      targetRevision: v1.8.1
-      helm:
-        values: |
-          preUpgradeChecker:
-            jobEnabled: false
+  source:
+    chart: longhorn
+    repoURL: https://charts.longhorn.io/
+    targetRevision: v1.8.1
+    helm:
+      valuesObject:
+        defaultSettings:
+          orphanAutoDeletion: false
+          autoDeletePodWhenVolumeDetachedUnexpectedly: true
+          nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+          nodeDrainPolicy: always-allow
+        preUpgradeChecker:
+          jobEnabled: false
   destination:
     name: in-cluster
     namespace: longhorn-system

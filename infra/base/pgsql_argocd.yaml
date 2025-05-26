@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgresql
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+  - repoURL: https://cloudnative-pg.github.io/charts
+    chart: cloudnative-pg
+    targetRevision: 0.23.2
+    helm:
+      valuesObject:
+        config:
+          clusterWide: false
+        monitoring:
+          podMonitorEnabled: true
+          grafanaDashboard:
+            create: true
+  - repoURL: https://github.com/tawdball/homelab.git
+    path: infra/base/pgsql
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: cnpg-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
