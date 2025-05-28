@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkding
+  labels:
+    app: linkding
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: linkding
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: linkding
+    spec:
+      containers:
+        - name: linkding
+          image: sissbruecker/linkding:1.40.0-plus
+          ports:
+            - containerPort: 9090
+          env:
+            - name: LD_SUPERUSER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: linkding-secrets
+                  key: superuser-username
+            - name: LD_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: linkding-secrets
+                  key: superuser-password
+            - name: LD_DB_DATABASE
+              value: linkding
+            - name: LD_DB_ENGINE
+              value: postgres
+            - name: LD_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: linkding-db
+                  key: user
+            - name: LD_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: linkding-db
+                  key: password
+            - name: LD_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: linkding-db
+                  key: host
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: linkding
+spec:
+  selector:
+    app: linkding
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090

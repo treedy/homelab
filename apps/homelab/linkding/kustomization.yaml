@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: linkding
+resources:
+  - linkding-sealedsecrets.yaml
+  - linkding-db_sealedsecrets.yaml
+  - ../../base/linkding
+  - linkding-ingress.yaml
