@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - sealed-secrets_argocd.yaml
   - metallb_argocd.yaml
   - kube-prometheus-stack_argocd.yaml
   - traefik_argocd.yaml
