@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgadmin
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: pgadmin4
+    repoURL: https://helm.runix.net/
+    targetRevision: 1.44.*
+    helm:
+      valuesObject:
+        persistentVolume:
+          size: 1Gi
+          storageClass: longhorn
+        service:
+          type: LoadBalancer
+          loadBalancerIP: 192.168.0.50
+  destination:
+    name: in-cluster
+    namespace: cnpg-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
