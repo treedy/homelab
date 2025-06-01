@@ -9,3 +9,4 @@ resources:
   - ./cert-manager/letsencrypt-issuer.yaml
   - longhorn-argocd.yaml
   - pgsql_argocd.yaml
+  - redis_argocd.yaml
