@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authentik
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+  - repoURL: https://charts.goauthentik.io
+    chart: authentik
+    targetRevision: 2025.4.1
+    helm:
+      valuesObject:
+        global:
+          volumes:
+            - name: postgres-creds
+              secret:
+                secretName: authentik-postgres-credentials
+            - name: authentik-config
+              secret:
+                secretName: authentik-secrets
+          volumeMounts:
+            - name: postgres-creds
+              mountPath: /postgres-creds
+              readOnly: true
+            - name: authentik-config
+              mountPath: /authentik-cfg
+              readOnly: true
+        authentik:
+          secret_key: file:///authentik-cfg/SECRET_KEY
+          postgresql:
+            host: file:///postgres-creds/host
+            name: file:///postgres-creds/name
+            user: file:///postgres-creds/user
+            password: file:///postgres-creds/password
+          redis:
+            host: redis-master.redis
+        server:
+          ingress:
+            enabled: true
+            hosts:
+            - authentik.1earn.ing
+            - authentik.local
+  - repoURL: https://github.com/tawdball/homelab.git
+    path: infra/base/authentik
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: authentik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

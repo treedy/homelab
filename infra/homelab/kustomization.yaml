@@ -20,3 +20,15 @@ patches:
       kind: Application
       name: postgresql
       namespace: argocd
+  - patch: |
+      - op: replace
+        path: /spec/sources/1
+        value: {
+          repoURL: http://truenas.local:30008/tawdball/homelab.git,
+          path: infra/homelab/authentik,
+          targetRevision: HEAD
+        }
+    target:
+      kind: Application
+      name: authentik
+      namespace: argocd
