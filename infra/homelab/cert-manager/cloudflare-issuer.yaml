@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: cloudflare-clusterissuer
+  namespace: cert-manager
+spec:
+  acme:
+    # --- IMPORTANT: Use Let's Encrypt Staging first to avoid rate limits ---
+    # server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # --- Once staging works, create a production issuer ---
+    server: https://acme-v02.api.letsencrypt.org/directory
+
+    # Email address used for ACME registration (replace with yours)
+    email: tawdball@gmail.com
+    # Name of a Secret resource used to store the ACME account private key
+    privateKeySecretRef:
+      name: cloudflare-key
+    solvers:
+      - dns01:
+          cloudflare:
+           apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
