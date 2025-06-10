@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: it-tools-ingress
+  namespace: it-tools
+spec:
+  entryPoints:
+  - websecure
+  - ext-websecure
+  routes:
+  - kind: Rule
+    match: HostRegexp(`^it-tools\..*`)
+
+    services:
+    - kind: Service
+      name: it-tools-service
+      passHostHeader: true
+      port: 80
+
+  tls:
+    secretName: ittools-ingress-cert-secret

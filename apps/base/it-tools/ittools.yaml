@@ -36,20 +36,3 @@ spec:
   ports:
   - port: 80
     targetPort: 80
----
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: it-tools-ingress
-  namespace: it-tools
-spec:
-  entryPoints:
-  - web
-  routes:
-  - kind: Rule
-    match: HostRegexp(`^it-tools\.*`)
-    services:
-    - kind: Service
-      name: it-tools-service
-      passHostHeader: true
-      port: 80
