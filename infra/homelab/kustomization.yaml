@@ -32,3 +32,4 @@ patches:
       kind: Application
       name: authentik
       namespace: argocd
+  - path: traefik_argocd.yaml

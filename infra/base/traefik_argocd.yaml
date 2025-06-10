@@ -10,17 +10,24 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts
     chart: traefik
-    targetRevision: 35.3.0
+    targetRevision: 36.0.*
     helm:
       releaseName: traefik
       valuesObject:
-        service:
-          type: LoadBalancer
-          spec:
-            loadBalancerIP: 192.168.0.20
         ingressClass:
           enabled: true
           isDefaultClass: true
+        ports:
+          ext-web:
+            port: 7080
+            exposedPort: 7080
+            expose:
+              default: true
+          ext-websecure:
+            port: 7443
+            exposedPort: 7443
+            expose:
+              default: true
   destination:
     name: in-cluster
     namespace: traefik
