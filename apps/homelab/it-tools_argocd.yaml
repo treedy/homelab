@@ -6,8 +6,7 @@ metadata:
 spec:
   source:
     path: apps/homelab/it-tools
-    repoURL: http://truenas.local:30008/tawdball/homelab.git
-    targetRevision: HEAD
+    targetRevision: main
   syncPolicy:
     automated:
       prune: true

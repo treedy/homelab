@@ -5,6 +5,8 @@ metadata:
   namespace: argocd # Assuming your ArgoCD is in the 'argocd' namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  labels:
+    isHelm: "true"
 spec:
   project: default # Or your specific ArgoCD project
   source:

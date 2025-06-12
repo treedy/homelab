@@ -2,6 +2,39 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base
+
+# generatorOptions:
+#   disableNameSuffixHash: true
+
+# configMapGenerator:
+#   - name: homelab-configmap
+#     namespace: argocd
+#     literals:
+#       - repoURL=http://truenas:30008/tawdball/homelab.git
+
+# replacements:
+#   - source:
+#       version: v1
+#       kind: ConfigMap
+#       name: homelab-configmap
+#       namespace: argocd
+#       fieldPath: data.repoURL
+#     targets:
+#       - select:
+#           kind: Application
+#         fieldPaths:
+#         - spec.source.repoURL
+#         reject:
+#         - name: pgadmin
+
 patches:
   - path: it-tools_argocd.yaml
   - path: linkding_argocd.yaml
+  - patch: |-
+      - op: replace
+        path: /spec/source/repoURL
+        value: http://truenas:30008/tawdball/homelab.git
+    target:
+      kind: Application
+      namespace: argocd
+      labelSelector: isHelm=false

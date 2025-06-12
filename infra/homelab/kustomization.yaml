@@ -12,9 +12,8 @@ patches:
       - op: replace
         path: /spec/sources/1
         value: {
-          repoURL: http://truenas.local:30008/tawdball/homelab.git,
           path: infra/homelab/pgsql,
-          targetRevision: HEAD
+          targetRevision: main
         }
     target:
       kind: Application
@@ -24,12 +23,27 @@ patches:
       - op: replace
         path: /spec/sources/1
         value: {
-          repoURL: http://truenas.local:30008/tawdball/homelab.git,
           path: infra/homelab/authentik,
-          targetRevision: HEAD
+          targetRevision: main
         }
     target:
       kind: Application
       name: authentik
       namespace: argocd
   - path: traefik_argocd.yaml
+  - patch: |-
+      - op: replace
+        path: /spec/source/repoURL
+        value: http://truenas:30008/tawdball/homelab.git
+    target:
+      kind: Application
+      namespace: argocd
+      labelSelector: isHelm=false
+  - patch: |-
+      - op: replace
+        path: /spec/sources/1/repoURL
+        value: http://truenas:30008/tawdball/homelab.git
+    target:
+      kind: Application
+      namespace: argocd
+      labelSelector: isHelm=partial

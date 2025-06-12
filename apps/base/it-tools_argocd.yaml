@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: it-tools
   namespace: argocd
+  labels:
+    isHelm: "false"
 spec:
   destination:
     namespace: it-tools

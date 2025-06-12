@@ -5,6 +5,5 @@ metadata:
   namespace: argocd
 spec:
   source:
-    repoURL: http://truenas.local:30008/tawdball/homelab.git
     path: apps/homelab/linkding
-    targetRevision: HEAD
+    targetRevision: main

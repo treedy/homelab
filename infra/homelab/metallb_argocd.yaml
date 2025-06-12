@@ -7,5 +7,4 @@ metadata:
 spec:
   source:
     path: infra/homelab/metallb
-    repoURL: http://truenas.local:30008/tawdball/homelab.git
     targetRevision: main

@@ -8,8 +8,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: http://truenas.local:30008/tawdball/homelab.git
-    targetRevision: wip-gitea-only
+    repoURL: https://github.com/yourusername/yourrepo/homelab.git
+    targetRevision: main
     path: apps
   destination:
     name: in-cluster
