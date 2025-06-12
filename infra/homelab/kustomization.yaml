@@ -21,6 +21,9 @@ patches:
       namespace: argocd
   - patch: |
       - op: replace
+        path: /spec/sources/0/targetRevision
+        value: 2025.6.1
+      - op: replace
         path: /spec/sources/1
         value: {
           path: infra/homelab/authentik,
