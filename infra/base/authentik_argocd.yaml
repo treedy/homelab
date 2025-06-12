@@ -41,10 +41,7 @@ spec:
             host: redis-master.redis
         server:
           ingress:
-            enabled: true
-            hosts:
-            - authentik.1earn.ing
-            - authentik.local
+            enabled: false # We'll define our own if needed
   - repoURL: https://github.com/tawdball/homelab.git
     path: infra/base/authentik
     targetRevision: HEAD

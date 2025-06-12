@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authentik-ingressroute
+  namespace: authentik
+spec:
+  entryPoints:
+  - websecure
+  - ext-websecure
+  routes:
+  - kind: Rule
+    match: HostRegexp(`auth\..*`)
+    services:
+    - kind: Service
+      name: authentik-server
+      port: 443
+  tls:
+    secretName: authentik-ingress-cert-secret

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: authentik-ingress-cert
+spec:
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  secretName: authentik-ingress-cert-secret
+  dnsNames:
+    - auth.1earn.ing
+    - auth.int.1earn.ing
