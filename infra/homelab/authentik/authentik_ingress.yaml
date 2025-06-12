@@ -13,6 +13,6 @@ spec:
     services:
     - kind: Service
       name: authentik-server
-      port: 443
+      port: 80
   tls:
     secretName: authentik-ingress-cert-secret
