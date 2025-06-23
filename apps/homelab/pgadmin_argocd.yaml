@@ -33,6 +33,7 @@ spec:
           subPath: tls.key
           mountPath: "/certs/server.key"
           readOnly: true
+        envVarsFromSecrets: [pgadmin-oauth-secret]
   destination:
     name: in-cluster
     namespace: cnpg-system

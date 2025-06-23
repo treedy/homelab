@@ -40,3 +40,4 @@ patches:
       kind: Application
       namespace: argocd
       labelSelector: isHelm=false
+  - path: pgadmin_argocd.yaml
