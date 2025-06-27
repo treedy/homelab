@@ -22,7 +22,7 @@ patches:
   - patch: |
       - op: replace
         path: /spec/sources/0/targetRevision
-        value: 2025.6.1
+        value: 2025.6.3
       - op: replace
         path: /spec/sources/1
         value: {
