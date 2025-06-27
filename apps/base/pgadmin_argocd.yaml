@@ -10,7 +10,7 @@ spec:
   source:
     chart: pgadmin4
     repoURL: https://helm.runix.net/
-    targetRevision: 1.44.*
+    targetRevision: 1.47.*
     helm:
       valuesObject:
         persistentVolume:
