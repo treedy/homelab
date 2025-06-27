@@ -10,7 +10,14 @@ spec:
   storage:
     storageClass: longhorn-cnpg
     size: 12Gi
+  walStorage:
+    storageClass: longhorn-cnpg
+    size: 3Gi
 
   monitoring:
     disableDefaultQueries: false
     enablePodMonitor: true
+
+  postgresql:
+    parameters:
+      max_slot_wal_keep_size: "2560" # 2.5Gb
