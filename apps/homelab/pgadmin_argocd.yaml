@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgadmin
+  namespace: argocd
+  labels:
+    isHelm: "true"
+spec:
+  source:
+    targetRevision: 1.47.0
+    helm:
+      valuesObject:
+        containerPorts:
+          http: 443  # Do NOT rename to "https"
+        service:
+          type: LoadBalancer
+          loadBalancerIP: 192.168.0.50
+          port: 443
+          targetPort: 443
+          portName: https
+        env:
+          variables:
+          - name: PGADMIN_ENABLE_TLS
+            value: true
+        extraSecretMounts:
+        - name: pgadmin-tls-cert-mount
+          secret: pgadmin-ingress-cert-secret
+          subPath: tls.crt
+          mountPath: "/certs/server.cert"
+          readOnly: true
+        - name: pgadmin-tls-key-mount
+          secret: pgadmin-ingress-cert-secret
+          subPath: tls.key
+          mountPath: "/certs/server.key"
+          readOnly: true
+  destination:
+    name: in-cluster
+    namespace: cnpg-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

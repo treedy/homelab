@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base
+  - pgadmin
 
 # generatorOptions:
 #   disableNameSuffixHash: true
@@ -30,6 +31,7 @@ resources:
 patches:
   - path: it-tools_argocd.yaml
   - path: linkding_argocd.yaml
+  - path: pgadmin_argocd.yaml
   - patch: |-
       - op: replace
         path: /spec/source/repoURL
