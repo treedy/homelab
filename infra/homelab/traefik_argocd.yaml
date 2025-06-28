@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   source:
-    targetRevision: 36.0.0
+    targetRevision: 36.2.0
     helm:
       valuesObject:
         service:
