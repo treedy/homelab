@@ -35,6 +35,29 @@ patches:
       namespace: argocd
   - path: traefik_argocd.yaml
   - patch: |-
+      - op: add
+        path: /spec/source/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
+        value: 10.244.0.0/16
+      - op: add
+        path: /spec/source/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
+        value: 10.96.0.0/12
+      - op: add
+        path: /spec/source/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
+        value: 192.168.0.0/22
+      - op: add
+        path: /spec/source/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
+        value: 10.244.0.0/16
+      - op: add
+        path: /spec/source/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
+        value: 10.96.0.0/12
+      - op: add
+        path: /spec/source/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
+        value: 192.168.0.0/22
+    target:
+      kind: Application
+      namespace: argocd
+      name: traefik
+  - patch: |-
       - op: replace
         path: /spec/source/repoURL
         value: http://truenas:30008/tawdball/homelab.git
