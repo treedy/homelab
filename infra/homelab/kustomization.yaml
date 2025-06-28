@@ -60,7 +60,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/source/repoURL
-        value: http://truenas:30008/tawdball/homelab.git
+        value: https://truenas.int.1earn.ing:30008/tawdball/homelab.git
     target:
       kind: Application
       namespace: argocd
@@ -68,7 +68,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/sources/1/repoURL
-        value: http://truenas:30008/tawdball/homelab.git
+        value: https://truenas.int.1earn.ing:30008/tawdball/homelab.git
     target:
       kind: Application
       namespace: argocd
