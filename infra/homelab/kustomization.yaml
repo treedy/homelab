@@ -3,11 +3,11 @@ kind: Kustomization
 resources:
   - ../base
   - argocd/argocd_ingress.yaml
+  - cert-manager
 patches:
   - path: metallb_argocd.yaml
   - path: kube-prometheus-stack_argocd.yaml
   - path: cert-manager_argocd.yaml
-  - path: cert-manager/letsencrypt-issuer.yaml
   - path: longhorn-argocd.yaml
   - patch: |
       - op: replace
