@@ -45,12 +45,12 @@ spec:
           websecure:
             forwardedHeaders:
               trustedIPs: []
-          providers:
-            # Needed for Authentik outposts
-            # See: https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
-            kubernetesCRD:
-              allowCrossNamespace: true
-              allowExternalNameServices: true
+        providers:
+          # Needed for Authentik outposts
+          # See: https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
+          kubernetesCRD:
+            allowCrossNamespace: true
+            allowExternalNameServices: true
   destination:
     name: in-cluster
     namespace: traefik
