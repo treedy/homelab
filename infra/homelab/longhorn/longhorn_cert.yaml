@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: longhorn-ingress-cert
+  namespace: longhorn-system
+spec:
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  secretName: longhorn-ingress-cert-secret
+  dnsNames:
+    - longhorn.1earn.ing
+    - longhorn.int.1earn.ing
