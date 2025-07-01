@@ -11,7 +11,7 @@ resources:
 #   - name: homelab-configmap
 #     namespace: argocd
 #     literals:
-#       - repoURL=http://truenas:30008/tawdball/homelab.git
+#       - repoURL=https://truenas.int.1earn.ing:30008/tawdball/homelab.git
 
 # replacements:
 #   - source:
@@ -35,7 +35,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/source/repoURL
-        value: http://truenas:30008/tawdball/homelab.git
+        value: https://truenas.int.1earn.ing:30008/tawdball/homelab.git
     target:
       kind: Application
       namespace: argocd
