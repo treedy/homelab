@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base
+  - argocd/argocd_ingress.yaml
 patches:
   - path: metallb_argocd.yaml
   - path: kube-prometheus-stack_argocd.yaml
@@ -19,6 +20,7 @@ patches:
       kind: Application
       name: postgresql
       namespace: argocd
+  # Authentik patches
   - patch: |
       - op: replace
         path: /spec/sources/0/targetRevision
@@ -33,6 +35,7 @@ patches:
       kind: Application
       name: authentik
       namespace: argocd
+  # Traefik patches
   - path: traefik_argocd.yaml
   - patch: |-
       - op: add
@@ -57,6 +60,7 @@ patches:
       kind: Application
       namespace: argocd
       name: traefik
+  # General ArgoCD application patches
   - patch: |-
       - op: replace
         path: /spec/source/repoURL
