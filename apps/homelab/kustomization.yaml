@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../base
   - pgadmin
-  - linkding
 
 # generatorOptions:
 #   disableNameSuffixHash: true
@@ -41,4 +40,3 @@ patches:
       kind: Application
       namespace: argocd
       labelSelector: isHelm=false
-  - path: pgadmin_argocd.yaml
