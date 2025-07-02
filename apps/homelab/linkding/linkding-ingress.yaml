@@ -27,5 +27,12 @@ spec:
         namespace: authentik
         name: ak-outpost-authentik-embedded-outpost
         port: 9000
+
+    # Expose the API since it requires a valid token.
+    - kind: Rule
+      match: Host(`linkding.1earn.ing`) && PathPrefix(`/api/bookmarks/`)
+      services:
+        - name: linkding
+          port: 9090
   tls:
     secretName: linkding-ingress-cert-secret
