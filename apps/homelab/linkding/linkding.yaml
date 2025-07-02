@@ -14,3 +14,13 @@ spec:
               value: HTTP_X_AUTHENTIK_USERNAME
             - name: LD_AUTH_PROXY_LOGOUT_URL
               value: https://linkding.1earn.ing/outpost.goauthentik.io/sign_out
+          # todo: Investigate appropriate security context as commented below
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   capabilities:
+          #     drop:
+          #     - ALL
+          #   runAsNonRoot: true
+          #   runAsUser: 1000
+          #   seccompProfile:
+          #     type: RuntimeDefault
