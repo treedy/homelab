@@ -13,4 +13,4 @@ spec:
             - name: LD_AUTH_PROXY_USERNAME_HEADER
               value: HTTP_X_AUTHENTIK_USERNAME
             - name: LD_AUTH_PROXY_LOGOUT_URL
-              value: https://auth.1earn.ing/outpost.goauthentik.io/sign_out
+              value: https://linkding.1earn.ing/outpost.goauthentik.io/sign_out
