@@ -58,15 +58,3 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: linkding
-spec:
-  selector:
-    app: linkding
-  ports:
-    - protocol: TCP
-      port: 9090
-      targetPort: 9090
