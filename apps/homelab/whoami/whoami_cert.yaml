@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: whoami-ingress-cert
+spec:
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  secretName: whoami-ingress-cert-secret
+  dnsNames:
+    - whoami.1earn.ing
+    - whoami.int.1earn.ing
