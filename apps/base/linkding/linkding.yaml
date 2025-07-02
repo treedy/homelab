@@ -58,3 +58,11 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+          volumeMounts:
+            - mountPath: /etc/linkding/data
+              name: linkding-data
+      volumes:
+      - name: linkding-data
+        persistentVolumeClaim:
+          claimName: linkding-pvc
+

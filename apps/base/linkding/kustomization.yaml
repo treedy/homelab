@@ -5,3 +5,4 @@ resources:
   - linkding_db.yaml
   - linkding.yaml
   - linkding_service.yaml
+  - linkding_pvc.yaml
