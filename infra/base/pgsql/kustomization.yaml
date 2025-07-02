@@ -4,3 +4,5 @@ kind: Kustomization
 resources:
   - longhorn-cnpg-storageclass.yaml
   - pg-cluster.yaml
+  # Barman Cloud plug-in for backup
+  - https://github.com/cloudnative-pg/plugin-barman-cloud/releases/download/v0.5.0/manifest.yaml
