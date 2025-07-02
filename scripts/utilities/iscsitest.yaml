@@ -1,0 +1,96 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: iscsi-test-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: 192.168.0.10:3260
+    iqn: iqn.2005-10.org.freenas.ctl:testblk
+    lun: 0
+    fsType: ext4
+    initiatorName: iqn.2025-02.ing.1earn:custom.iqn
+    readOnly: false
+    # persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: iscsi-test-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iscsipd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iscsipd
+  template:
+    metadata:
+      labels:
+        app: iscsipd
+    spec:
+      containers:
+      - name: iscsipd-ro
+        image: bhargavshah86/kube-test:v0.1
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - mountPath: "/iscsipd"
+          name: iscsivol
+      volumes:
+      - name: iscsivol
+        persistentVolumeClaim:
+          claimName: iscsi-test-pvc
+#     iscsi:
+#       targetPortal: 192.168.0.10:3260
+#       iqn: iqn.2005-10.org.freenas.ctl:testblk
+#       lun: 0
+#       fsType: ext4
+#       readOnly: true
+
+         # machine:
+         # extensions:
+         # iscsi:
+         # targets:
+         # - portal: "192.168.0.10:3260" # Replace with your iSCSI target IP and port
+         # iqn: "iqn.2005-10.org.freenas.ctl:testblk" # Replace with your target IQN
+         # lun: 0 # (Optional) If specific LUN is needed. Often 0 for single LUN per target
+          # discovery: false # (Optional) Disable discovery for single target configuration
+          # username: "myusername" # (Optional) if CHAP authentication is enabled.
+          # password: "mypassword" # (Optional) if CHAP authentication is enabled.
+          # usernamein: "" # (Optional) if Mutual CHAP is enabled.
+          # passwordin: "" # (Optional) if Mutual CHAP is enabled.
+          # multipath: {} # (Optional) settings for multipath, see below example
+
+          # - portal: "192.168.1.101:3260" # Example of a second target
+          #   iqn: "iqn.2023-01.com.example:target2"
+          #   lun: 1
+
+        # Example of multipath configuration
+        #- portal: "192.168.1.102:3260"
+        #  iqn: "iqn.2023-01.com.example:multipath_target"
+        #  multipath:
+        #    path_checker: tur
+        #    path_selector: "queue-length"
+        #    failback: immediate
+        #    no_path_retry: queue
+        #    user_friendly_names: true
+        #    features: 1 queue_if_no_path1

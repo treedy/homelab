@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: 192.168.0.10
+    path: /mnt/LocalHDD/wednfs
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "nfstest"
+  namespace: default
+  labels:
+    app: "nfstest"
+spec:
+  containers:
+  - name: nfstest
+    image:  bhargavshah86/kube-test:v0.1
+  # image:  kubernetes/pause
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    volumeMounts:
+    - name: nfs
+      mountPath: /nfsmedia
+  volumes:
+    - name: nfs
+      persistentVolumeClaim:
+        claimName: nfs-pvc
+
+
