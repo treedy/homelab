@@ -5,6 +5,6 @@ metadata:
   namespace: argocd
 spec:
   source:
-    repoURL: https://truenas.int.1earn.ing:30008/tawdball/homelab.git
+    repoURL: https://truenas.1earn.ing:30008/tawdball/homelab.git
     targetRevision: main
     path: infra/homelab
