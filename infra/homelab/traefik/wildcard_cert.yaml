@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  namespace: traefik
+  name: wildcard-1earn-ing
+spec:
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  secretName: wildcard-1earn-ing-tls
+  dnsNames:
+    - 1earn.ing
+    - "*.1earn.ing"

@@ -6,11 +6,11 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    isHelm: "true"
+    isHelm: "partial"
 spec:
   project: default
-  source:
-    repoURL: https://traefik.github.io/charts
+  sources:
+  - repoURL: https://traefik.github.io/charts
     chart: traefik
     targetRevision: 36.2.*
     helm:
@@ -51,6 +51,9 @@ spec:
           kubernetesCRD:
             allowCrossNamespace: true
             allowExternalNameServices: true
+  - repoURL: https://github.com/tawdball/homelab.git
+    path: infra/base/traefik
+    targetRevision: HEAD
   destination:
     name: in-cluster
     namespace: traefik

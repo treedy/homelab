@@ -5,6 +5,24 @@ resources:
   - argocd/argocd_ingress.yaml
   - cert-manager
 patches:
+  # General ArgoCD application patches
+  - patch: |-
+      - op: replace
+        path: /spec/source/repoURL
+        value: https://truenas.1earn.ing:30008/tawdball/homelab.git
+    target:
+      kind: Application
+      namespace: argocd
+      labelSelector: isHelm=false
+  - patch: |-
+      - op: replace
+        path: /spec/sources/1/repoURL
+        value: https://truenas.1earn.ing:30008/tawdball/homelab.git
+    target:
+      kind: Application
+      namespace: argocd
+      labelSelector: isHelm=partial
+
   - path: metallb_argocd.yaml
   - path: kube-prometheus-stack_argocd.yaml
   - path: cert-manager_argocd.yaml
@@ -36,44 +54,62 @@ patches:
       name: authentik
       namespace: argocd
   # Traefik patches
-  - path: traefik_argocd.yaml
   - patch: |-
+      - op: replace
+        path: /spec/sources/0/targetRevision
+        value: 36.2.0
       - op: add
-        path: /spec/source/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
+        path: /spec/sources/0/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
         value: 10.244.0.0/16
       - op: add
-        path: /spec/source/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
+        path: /spec/sources/0/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
         value: 10.96.0.0/12
       - op: add
-        path: /spec/source/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
+        path: /spec/sources/0/helm/valuesObject/ports/ext-websecure/forwardedHeaders/trustedIPs/-
         value: 192.168.0.0/22
       - op: add
-        path: /spec/source/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
+        path: /spec/sources/0/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
         value: 10.244.0.0/16
       - op: add
-        path: /spec/source/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
+        path: /spec/sources/0/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
         value: 10.96.0.0/12
       - op: add
-        path: /spec/source/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
+        path: /spec/sources/0/helm/valuesObject/ports/websecure/forwardedHeaders/trustedIPs/-
         value: 192.168.0.0/22
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/service
+        value: {
+          type: LoadBalancer,
+          spec: {
+            loadBalancerIP: 192.168.0.20,
+            externalTrafficPolicy: Local
+          }
+        }
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/logs
+        value: {
+          access: {
+            enabled: true
+          }
+        }
+      - op: add
+        path: /spec/sources/0/helm/valuesObject/tlsStore
+        value: {
+          default: {
+            defaultCertificate: {
+              secretName: wildcard-1earn-ing-tls
+            }
+          }
+        }
     target:
       kind: Application
       namespace: argocd
       name: traefik
-  # General ArgoCD application patches
   - patch: |-
       - op: replace
-        path: /spec/source/repoURL
-        value: https://truenas.int.1earn.ing:30008/tawdball/homelab.git
+        path: /spec/sources/1/path
+        value: infra/homelab/traefik
     target:
       kind: Application
       namespace: argocd
-      labelSelector: isHelm=false
-  - patch: |-
-      - op: replace
-        path: /spec/sources/1/repoURL
-        value: https://truenas.int.1earn.ing:30008/tawdball/homelab.git
-    target:
-      kind: Application
-      namespace: argocd
-      labelSelector: isHelm=partial
+      name: traefik
