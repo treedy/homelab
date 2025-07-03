@@ -7,11 +7,11 @@ configs:
   # Use secret values found in the "authentik-dex-secrets" secret. See:
   # https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#sensitive-data-and-sso-client-secrets
   cm:
-    url: https://argocd.int.1earn.ing
+    url: https://argocd.1earn.ing
     dex.config: |
       connectors:
       - config:
-          issuer: https://auth.int.1earn.ing/application/o/argo-cd/
+          issuer: https://auth.1earn.ing/application/o/argo-cd/
           clientID: $authentik-dex-secrets:clientID
           clientSecret: $authentik-dex-secrets:clientSecret
           insecureEnableGroups: true

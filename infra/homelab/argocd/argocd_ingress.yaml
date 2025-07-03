@@ -10,26 +10,9 @@ spec:
     # Intranet access (for now) and valid credentials required.
     # Configuration required in Authentik Proxy provider.
   - kind: Rule
-    match: Host(`argocd.int.1earn.ing`)
-    # priority: 10
-    # middlewares:
-    #   - name: authentik
-    #     namespace: authentik
+    match: Host(`argocd.1earn.ing`)
     services:
     - kind: Service
       name: argocd-server
       passHostHeader: true
       port: 80
-
-    # Redirects for Authentik Outpost
-  # - kind: Rule
-  #   match: Host(`argocd.int.1earn.ing`) && PathPrefix(`/outpost.goauthentik.io/`)
-  #   priority: 15
-  #   services:
-  #   - kind: Service
-  #     namespace: authentik
-  #     name: ak-outpost-authentik-embedded-outpost
-  #     port: 9000
-
-  tls:
-    secretName: argocd-ingress-cert-secret
