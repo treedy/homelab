@@ -9,7 +9,7 @@ spec:
     - ext-websecure
   routes:
     - kind: Rule
-      match: Host(`linkding.1earn.ing`) || Host(`linkding.int.1earn.ing`)
+      match: Host(`linkding.1earn.ing`)
       priority: 10
       services:
         - name: linkding
@@ -34,5 +34,4 @@ spec:
       services:
         - name: linkding
           port: 9090
-  tls:
-    secretName: linkding-ingress-cert-secret
+  tls: {}

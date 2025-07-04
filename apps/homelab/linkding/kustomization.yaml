@@ -6,6 +6,5 @@ resources:
   - linkding-db_sealedsecrets.yaml
   - ../../base/linkding
   - linkding-ingress.yaml
-  - linkding_certificate.yaml
 patches:
   - path: linkding.yaml
