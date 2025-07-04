@@ -8,4 +8,5 @@ spec:
     kind: ClusterIssuer
   secretName: pgadmin-ingress-cert-secret
   dnsNames:
+    - pgadmin.1earn.ing
     - pgadmin.int.1earn.ing
