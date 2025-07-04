@@ -13,8 +13,7 @@ spec:
     spec:
       containers:
       - name: it-tools
-        # image: corentinth/it-tools:2024.10.22-7ca5933
-        image: ghcr.io/sharevb/it-tools:2025.2.9-b99a19c
+        image: docker.io/sharevb/it-tools@sha256:06da57c43b137afebfa4d4f6d396b4a89b656075428ae8386da213f4b314e13d
         resources:
           requests:
             memory: "128Mi"
@@ -23,7 +22,8 @@ spec:
             memory: "256Mi"
             cpu: "250m"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+          name: http
 ---
 apiVersion: v1
 kind: Service
@@ -35,4 +35,4 @@ spec:
     app: it-tools
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: http

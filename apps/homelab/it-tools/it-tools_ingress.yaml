@@ -8,17 +8,7 @@ spec:
   - websecure
   - ext-websecure
   routes:
-    # Intranet access... anyone can access it
-  - kind: Rule
-    match: Host(`it-tools.int.1earn.ing`)
-    services:
-    - kind: Service
-      name: it-tools-service
-      passHostHeader: true
-      port: 80
-    priority: 5
-
-    # Internet access... must be authenticated
+    # Must be authenticated
   - kind: Rule
     match: Host(`it-tools.1earn.ing`)
     middlewares:
@@ -41,5 +31,4 @@ spec:
       name: ak-outpost-authentik-embedded-outpost
       port: 9000
 
-  tls:
-    secretName: ittools-ingress-cert-secret
+  tls: {} # Keep TLS object so it uses default certificate
