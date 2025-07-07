@@ -4,3 +4,4 @@ resources:
   - it-tools_argocd.yaml
   - pgadmin_argocd.yaml
   - linkding_argocd.yaml
+  - home-assistant_argocd.yaml

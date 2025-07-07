@@ -1,0 +1,19 @@
+- op: add
+  path: /spec/source/helm/valuesObject/configuration
+  value:
+    enabled: true
+    trusted_proxies: [10.244.0.0/16, 10.96.0.0/12]
+- op: add
+  path: /spec/source/helm/valuesObject/ingress
+  value:
+    enabled: true
+    className: "traefik"
+    annotations:
+      kubernetes.io/ingress.class: "traefik"
+      traefik.ingress.kubernetes.io/router.entrypoints: "websecure,ext-websecure"
+    hosts:
+    - host: ha.1earn.ing
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    tls: {}

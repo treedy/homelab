@@ -32,6 +32,11 @@ patches:
   - path: it-tools_argocd.yaml
   - path: linkding_argocd.yaml
   - path: pgadmin_argocd.yaml
+  - path: home-assistant_argocd.yaml
+    target:
+      kind: Application
+      namespace: argocd
+      name: home-assistant
   - patch: |-
       - op: replace
         path: /spec/source/repoURL
