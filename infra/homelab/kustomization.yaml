@@ -86,13 +86,6 @@ patches:
           }
         }
       - op: add
-        path: /spec/sources/0/helm/valuesObject/logs
-        value: {
-          access: {
-            enabled: true
-          }
-        }
-      - op: add
         path: /spec/sources/0/helm/valuesObject/tlsStore
         value: {
           default: {

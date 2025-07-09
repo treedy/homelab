@@ -19,6 +19,18 @@ spec:
         ingressClass:
           enabled: true
           isDefaultClass: true
+        ingressRoute:
+          dashboard:
+            # Enable the dashboard, but don't expose the entrypoint in the
+            # "ports" section.
+            # Access through `kubectl port-forward`
+            enabled: true
+        logs:
+          access:
+            enabled: true
+            fields:
+              headers:
+                defaultmode: keep
         ports:
           ext-websecure:
             port: 7443
