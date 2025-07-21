@@ -106,3 +106,15 @@ patches:
       kind: Application
       namespace: argocd
       name: traefik
+  # Renovate patches
+  - patch: |-
+      - op: replace
+        path: /spec/sources/1/path
+        value: infra/homelab/renovate
+      - op: replace
+        path: /spec/sources/1/targetRevision
+        value: wip-gitea-only
+    target:
+      kind: Application
+      namespace: argocd
+      name: renovate

@@ -13,3 +13,4 @@ resources:
   - pgsql_argocd.yaml
   - redis_argocd.yaml
   - authentik_argocd.yaml
+  - renovate_argocd.yaml

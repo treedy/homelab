@@ -1,0 +1,72 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: renovate
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    isHelm: "partial"
+spec:
+  project: default
+  # Using `sources` since we'll have some secrets to pull in
+  sources:
+  - repoURL: https://docs.renovatebot.com/helm-charts
+    chart: renovate
+    # Pinning to a specific version is recommended for production stability.
+    # Check for new versions here: https://github.com/renovatebot/helm-charts/releases
+    targetRevision: 41.40.*
+    helm:
+      valuesObject:
+        # Use the existing secret created in Step 1 to provide tokens.
+        # The chart automatically maps keys like RENOVATE_TOKEN to environment variables.
+        existingSecret: "renovate-secrets"
+
+        # Other environment variables
+        # env:
+        #   LOG_LEVEL: "DEBUG"
+
+        # Configure the cronjob schedule to run every 12 hours.
+        cronjob:
+          schedule: "0 */12 * * *"
+
+        # Renovate's main configuration.
+        # See all options: https://docs.renovatebot.com/configuration-options/
+        renovate:
+          config:
+            # --- Platform Configuration ---
+            platform: "gitea"
+            # The API endpoint for your Gitea instance.
+            endpoint: "https://truenas.1earn.ing:30008/api/v1"
+            # Automatically discover all repositories the user has access to.
+            autodiscover: true
+            # The Gitea token is sourced from the 'RENOVATE_TOKEN' key in the 'renovate-secrets' Secret.
+            # The GitHub.com token is sourced from the 'GITHUB_COM_TOKEN' key in the 'renovate-secrets' Secret.
+
+            # --- Optional: Add a global renovate.json5 config here ---
+            # This is useful if you don't want to manage a separate config repository.
+            # See: https://docs.renovatebot.com/self-hosted-configuration/#config-file
+            # renovate.json: |
+            #   {
+            #     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+            #     "extends": [
+            #       "config:base"
+            #     ],
+            #     "prConcurrentLimit": 5
+            #   }
+  - repoURL: https://repotopull/
+
+  destination:
+    name: in-cluster
+    # Target namespace for Renovate components.
+    namespace: renovate
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      # Automatically create the 'renovate' namespace if it doesn't exist.
+      - CreateNamespace=true
+      # Recommended for better handling of CRDs and complex resources.
+      - ServerSideApply=true
