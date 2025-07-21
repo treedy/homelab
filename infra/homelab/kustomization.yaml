@@ -26,7 +26,7 @@ patches:
   - path: metallb_argocd.yaml
   - path: kube-prometheus-stack_argocd.yaml
   - path: cert-manager_argocd.yaml
-  - path: longhorn-argocd.yaml
+  - path: longhorn_argocd.yaml
   - patch: |
       - op: replace
         path: /spec/sources/1

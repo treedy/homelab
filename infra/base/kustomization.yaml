@@ -9,7 +9,7 @@ resources:
   - traefik_argocd.yaml
   - cert-manager_argocd.yaml
   - ./cert-manager/letsencrypt-issuer.yaml
-  - longhorn-argocd.yaml
+  - longhorn_argocd.yaml
   - pgsql_argocd.yaml
   - redis_argocd.yaml
   - authentik_argocd.yaml
